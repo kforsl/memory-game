@@ -80,7 +80,63 @@ function createFormInput(array) {
 
 function validateLogin(event) {
     event.preventDefault();
-    console.log(`validateLogin()`);
+
+    // Test User
+    const users = [
+        {
+            username: `abc`,
+            password: `123`,
+            highScore: 0,
+        },
+    ]
+
+    const usernameInput = document.querySelector(`#username`)
+    const passwordInput = document.querySelector(`#password`)
+
+    try {
+        if (!usernameInput.value && !passwordInput.value) {
+            throw {
+                node: usernameInput,
+                msg: `Please, enter in a username and a password.`
+            }
+        } else if (!usernameInput.value) {
+            throw {
+                node: usernameInput,
+                msg: `Please, enter in a username.`
+            }
+        } else if (!passwordInput.value) {
+            throw {
+                node: passwordInput,
+                msg: `Please, enter in a password.`
+            }
+        }
+
+        const foundUser = users.find(user => user.username === usernameInput.value)
+
+        if (!foundUser) {
+            throw {
+                node: usernameInput,
+                msg: `Sorry, we couldn't find an account with that username.`
+            }
+        } else {
+            if (foundUser.password !== passwordInput.value) {
+                throw {
+                    node: passwordInput,
+                    msg: `Sorry, that password isn't right.`
+                }
+            } else {
+                document.querySelector(`.form-section`).innerHTML = ``;
+                setGameArea(generateCardOrder())
+            }
+        }
+
+    } catch (error) {
+        error.node.focus();
+        error.node.value = ``;
+        document.querySelector(`.error-msg`).textContent = error.msg;
+
+    }
+
 }
 
 function addEventListenerCard() {

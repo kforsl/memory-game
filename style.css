@@ -27,7 +27,7 @@
     padding: 3rem;
     border-radius: 2rem;
     box-shadow: 4px 4px 8px rgba(0, 0, 0, .5);
-    min-width: 500px;
+    min-width: 550px;
 }
 
 .error-msg {
@@ -120,7 +120,7 @@
 }
 
 .game-over {
-    height: 100vh;
+    margin-top: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;
