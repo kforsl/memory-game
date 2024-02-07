@@ -78,3 +78,9 @@ function setGameArea(playingCards) {
         flipedCards = [];
         checkForGameOver()
     }
+
+    function flipToBackside() {
+    flipedCards.forEach(card => {
+        card.firstChild.classList.remove(`d-none`)
+    });
+}
