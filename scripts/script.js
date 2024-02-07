@@ -47,6 +47,12 @@ function initLoginForm() {
     divRef.appendChild(loginBtnRef);
     divRef.appendChild(signUpBtnRef);
     formRef.appendChild(divRef);
+
+    loginBtnRef.addEventListener(`click`, validateLogin);
+    signUpBtnRef.addEventListener(`click`, () => {
+        event.preventDefault();
+        console.log(`Clicked Sign Up`);
+    });
 }
 
 function createFormInput(array) {
@@ -72,8 +78,9 @@ function createFormInput(array) {
     });
 }
 
-function validateLogin() {
-
+function validateLogin(event) {
+    event.preventDefault();
+    console.log(`validateLogin()`);
 }
 
 function addEventListenerCard() {
