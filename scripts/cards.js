@@ -35,4 +35,4 @@ let cards = [
         cardImg: `./assets/head-of-a-unicorn.svg`,
         cardName: `Unicorn`
     }
-
+];
