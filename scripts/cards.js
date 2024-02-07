@@ -1,3 +1,9 @@
+let playedTurns = 0;
+
+let nmbrFlipedCards = 1;
+
+let flipedCards = [];
+
 let cards = [
     {
         cardImg: `./assets/coiled-snake.svg`,
