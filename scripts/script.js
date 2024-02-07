@@ -1,3 +1,11 @@
+window.addEventListener(`load`, () => {
+    setGameArea(generateCardOrder())
+});
+
+function addEventListenerCard() {
+    document.querySelectorAll(`.card`).forEach(card => card.addEventListener(`click`, flipCard));
+}
+
 function generateCardOrder() {
     const deck = [];
     const suffledDeck = [];
@@ -9,7 +17,7 @@ function generateCardOrder() {
     });
 
     for (let j = deck.length; j > 0; j--) {
-        suffledDeck.push(...deck.splice(Math.floor(Math.random() * deck.length), 1))
+        suffledDeck.push(...deck.splice(Math.floor(Math.random() * deck.length), 1));
     }
-    return suffledDeck
+    return suffledDeck;
 }
