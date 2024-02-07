@@ -46,8 +46,9 @@ function setGameArea(playingCards) {
         document.querySelector(`.game-area`).appendChild(cardRef)
         addEventListenerCard()
     });
-  
-  function flipCard(card) {
+}
+
+function flipCard(card) {
     const cardTarget = card.target
     const cardBackside = card.target.childNodes[0]
 
@@ -67,8 +68,8 @@ function setGameArea(playingCards) {
         }
     }
 }
-  
-  function checkForMatch() {
+
+function checkForMatch() {
     if (flipedCards[0].textContent !== flipedCards[1].textContent) {
         setTimeout(() => {
             flipToBackside()
@@ -80,9 +81,10 @@ function setGameArea(playingCards) {
     }
 
     function flipToBackside() {
-    flipedCards.forEach(card => {
-        card.firstChild.classList.remove(`d-none`)
-    });
+        flipedCards.forEach(card => {
+            card.firstChild.classList.remove(`d-none`)
+        });
+    }
 }
 
 function checkForGameOver() {
