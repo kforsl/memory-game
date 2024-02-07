@@ -8,7 +8,7 @@ function initGameOverScreen() {
     divRef.appendChild(h2Ref)
 
     const msgRef = document.createElement(`p`)
-    msgRef.classList.add(`wictory-msg`)
+    msgRef.classList.add(`victory-msg`)
     msgRef.textContent = `You matched all the cards in ${playedTurns} turns`
     divRef.appendChild(msgRef)
 
