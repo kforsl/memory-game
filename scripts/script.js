@@ -1,6 +1,80 @@
 window.addEventListener(`load`, () => {
-    setGameArea(generateCardOrder())
+    // setGameArea(generateCardOrder())
+    initLoginForm()
 });
+
+function initLoginForm() {
+    const loginForm = [
+        {
+            id: `username`,
+            type: `text`,
+            placeholder: `Username`
+        },
+        {
+            id: `password`,
+            type: `password`,
+            placeholder: `Password`
+        }
+    ];
+
+    const formRef = document.createElement(`form`);
+    formRef.classList.add(`form-container`);
+    document.querySelector(`.form-section`).appendChild(formRef);
+
+    const h2Ref = document.createElement(`h2`);
+    h2Ref.textContent = `Login`;
+    formRef.appendChild(h2Ref);
+
+    const errorMsgRef = document.createElement(`p`);
+    errorMsgRef.classList.add(`error-msg`);
+    formRef.appendChild(errorMsgRef);
+
+    createFormInput(loginForm);
+
+    const divRef = document.createElement(`div`);
+    divRef.classList.add(`form-btnbox`);
+
+    const loginBtnRef = document.createElement(`button`);
+    loginBtnRef.classList.add(`form-btn`);
+    loginBtnRef.id = `loginBtn`;
+    loginBtnRef.textContent = `Login`;
+
+    const signUpBtnRef = document.createElement(`button`);
+    signUpBtnRef.classList.add(`form-btn`);
+    signUpBtnRef.id = `signUpBtn`;
+    signUpBtnRef.textContent = `Sign up`;
+
+    divRef.appendChild(loginBtnRef);
+    divRef.appendChild(signUpBtnRef);
+    formRef.appendChild(divRef);
+}
+
+function createFormInput(array) {
+    array.forEach(item => {
+
+        const divRef = document.createElement(`div`);
+        divRef.classList.add(`form-inputbox`);
+
+        const labelRef = document.createElement(`label`);
+        labelRef.classList.add(`form-label`);
+        labelRef.setAttribute(`for`, item.id);
+        labelRef.textContent = `${item.placeholder}:`;
+
+        const inputRef = document.createElement(`input`);
+        inputRef.classList.add(`form-input`);
+        inputRef.id = item.id;
+        inputRef.type = item.type;
+        inputRef.placeholder = `${item.placeholder}...`;
+
+        divRef.appendChild(labelRef);
+        divRef.appendChild(inputRef);
+        document.querySelector(`.form-container`).appendChild(divRef);
+    });
+}
+
+function validateLogin() {
+
+}
 
 function addEventListenerCard() {
     document.querySelectorAll(`.card`).forEach(card => card.addEventListener(`click`, flipCard));
