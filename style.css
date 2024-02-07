@@ -4,12 +4,83 @@
     box-sizing: border-box;
 }
 
+.wrapper {
+    max-width: 1420px;
+}
+
+.form-section {
+    margin: 3rem auto;
+    max-width: 1000px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-container {
+
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    gap: .8rem;
+    border: 2px solid black;
+    padding: 3rem;
+    border-radius: 2rem;
+    box-shadow: 4px 4px 8px rgba(0, 0, 0, .5);
+    min-width: 550px;
+}
+
+.error-msg {
+    font-size: 1.2rem;
+    color: red;
+    font-weight: 700;
+    min-height: 23px;
+}
+
+.form-inputbox {
+    display: flex;
+    flex-direction: column;
+    gap: .3rem;
+    width: 100%;
+}
+
+.form-label {
+    font-weight: 600;
+
+}
+
+.form-input {
+    padding: .5rem;
+    width: 100%;
+    border-radius: .6rem;
+    border: solid 1px black;
+}
+
+.form-btnbox {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+}
+
+.form-btn {
+    padding: .5rem 3rem;
+    border-radius: 1.3rem;
+    border: solid 1px black;
+}
+
+.form-btn:hover {
+    background-color: black;
+    color: white;
+}
+
+
 .game-area {
     margin: 3rem auto;
-    max-width: 1440px;
+    max-width: 1000px;
     display: grid;
-    gap: 3rem;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
 }
 
 .card {
@@ -49,7 +120,7 @@
 }
 
 .game-over {
-    height: 100vh;
+    margin-top: 3rem;
     display: flex;
     flex-direction: column;
     align-items: center;

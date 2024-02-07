@@ -1,6 +1,143 @@
 window.addEventListener(`load`, () => {
-    setGameArea(generateCardOrder())
+    // setGameArea(generateCardOrder())
+    initLoginForm()
 });
+
+function initLoginForm() {
+    const loginForm = [
+        {
+            id: `username`,
+            type: `text`,
+            placeholder: `Username`
+        },
+        {
+            id: `password`,
+            type: `password`,
+            placeholder: `Password`
+        }
+    ];
+
+    const formRef = document.createElement(`form`);
+    formRef.classList.add(`form-container`);
+    document.querySelector(`.form-section`).appendChild(formRef);
+
+    const h2Ref = document.createElement(`h2`);
+    h2Ref.textContent = `Login`;
+    formRef.appendChild(h2Ref);
+
+    const errorMsgRef = document.createElement(`p`);
+    errorMsgRef.classList.add(`error-msg`);
+    formRef.appendChild(errorMsgRef);
+
+    createFormInput(loginForm);
+
+    const divRef = document.createElement(`div`);
+    divRef.classList.add(`form-btnbox`);
+
+    const loginBtnRef = document.createElement(`button`);
+    loginBtnRef.classList.add(`form-btn`);
+    loginBtnRef.id = `loginBtn`;
+    loginBtnRef.textContent = `Login`;
+
+    const signUpBtnRef = document.createElement(`button`);
+    signUpBtnRef.classList.add(`form-btn`);
+    signUpBtnRef.id = `signUpBtn`;
+    signUpBtnRef.textContent = `Sign up`;
+
+    divRef.appendChild(loginBtnRef);
+    divRef.appendChild(signUpBtnRef);
+    formRef.appendChild(divRef);
+
+    loginBtnRef.addEventListener(`click`, validateLogin);
+    signUpBtnRef.addEventListener(`click`, () => {
+        event.preventDefault();
+        console.log(`Clicked Sign Up`);
+    });
+}
+
+function createFormInput(array) {
+    array.forEach(item => {
+
+        const divRef = document.createElement(`div`);
+        divRef.classList.add(`form-inputbox`);
+
+        const labelRef = document.createElement(`label`);
+        labelRef.classList.add(`form-label`);
+        labelRef.setAttribute(`for`, item.id);
+        labelRef.textContent = `${item.placeholder}:`;
+
+        const inputRef = document.createElement(`input`);
+        inputRef.classList.add(`form-input`);
+        inputRef.id = item.id;
+        inputRef.type = item.type;
+        inputRef.placeholder = `${item.placeholder}...`;
+
+        divRef.appendChild(labelRef);
+        divRef.appendChild(inputRef);
+        document.querySelector(`.form-container`).appendChild(divRef);
+    });
+}
+
+function validateLogin(event) {
+    event.preventDefault();
+
+    // Test User
+    const users = [
+        {
+            username: `abc`,
+            password: `123`,
+            highScore: 0,
+        },
+    ]
+
+    const usernameInput = document.querySelector(`#username`)
+    const passwordInput = document.querySelector(`#password`)
+
+    try {
+        if (!usernameInput.value && !passwordInput.value) {
+            throw {
+                node: usernameInput,
+                msg: `Please, enter in a username and a password.`
+            }
+        } else if (!usernameInput.value) {
+            throw {
+                node: usernameInput,
+                msg: `Please, enter in a username.`
+            }
+        } else if (!passwordInput.value) {
+            throw {
+                node: passwordInput,
+                msg: `Please, enter in a password.`
+            }
+        }
+
+        const foundUser = users.find(user => user.username === usernameInput.value)
+
+        if (!foundUser) {
+            throw {
+                node: usernameInput,
+                msg: `Sorry, we couldn't find an account with that username.`
+            }
+        } else {
+            if (foundUser.password !== passwordInput.value) {
+                throw {
+                    node: passwordInput,
+                    msg: `Sorry, that password isn't right.`
+                }
+            } else {
+                document.querySelector(`.form-section`).innerHTML = ``;
+                setGameArea(generateCardOrder())
+            }
+        }
+
+    } catch (error) {
+        error.node.focus();
+        error.node.value = ``;
+        document.querySelector(`.error-msg`).textContent = error.msg;
+
+    }
+
+}
 
 function addEventListenerCard() {
     document.querySelectorAll(`.card`).forEach(card => card.addEventListener(`click`, flipCard));
