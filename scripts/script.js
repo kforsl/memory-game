@@ -43,11 +43,9 @@ function initSignUpForm(event) {
         }
     ];
     initForm(formTitle, signUpForm)
-
 }
 
 function initForm(title, form) {
-
 
     const formRef = document.createElement(`form`);
     formRef.classList.add(`form-container`);
@@ -66,12 +64,6 @@ function initForm(title, form) {
     const divRef = document.createElement(`div`);
     divRef.classList.add(`form-btnbox`);
 
-
-
-
-
-
-
     if (title === `Login`) {
 
         const loginBtnRef = document.createElement(`button`);
@@ -89,6 +81,7 @@ function initForm(title, form) {
         divRef.appendChild(signUpBtnRef);
 
         signUpBtnRef.addEventListener(`click`, initSignUpForm);
+
     } else {
 
         const RegisterBtnRef = document.createElement(`button`);
@@ -182,14 +175,73 @@ function validateLogin(event) {
         error.node.focus();
         error.node.value = ``;
         document.querySelector(`.error-msg`).textContent = error.msg;
-
     }
 
 }
 
 function validateRegistartion(event) {
     event.preventDefault();
-    console.log(`validateRegistartion()`)
+
+    // Test User
+    const users = [
+        {
+            username: `abc`,
+            password: `123`,
+            highScore: 0,
+        },
+    ]
+    try {
+        const usernameInput = document.querySelector(`#username`)
+        const passwordInput = document.querySelector(`#password`)
+        const passwordAgainInput = document.querySelector(`#passwordAgain`)
+
+        const foundUser = users.find(user => user.username === usernameInput.value)
+
+        if (!usernameInput.value && !passwordInput.value && !passwordAgainInput.value) {
+            throw {
+                node: usernameInput,
+                msg: `Please, enter in a username and a password.`
+            }
+        } else if (!usernameInput.value) {
+            throw {
+                node: usernameInput,
+                msg: `Please, enter in a username.`
+            }
+        } else if (!passwordInput.value) {
+            throw {
+                node: passwordInput,
+                msg: `Please, enter in a password.`
+            }
+        } else if (!passwordAgainInput.value) {
+            throw {
+                node: passwordAgainInput,
+                msg: `Please, enter in the password again.`
+            }
+        }
+
+        if (foundUser) {
+            throw {
+                node: usernameInput,
+                msg: `Sorry, there is already a user with that name.`
+            }
+        } else {
+            if (passwordInput.value !== passwordAgainInput.value) {
+                throw {
+                    node: passwordAgainInput,
+                    msg: `Sorry, password don't match try again.`
+                }
+            } else {
+                document.querySelector(`.error-msg`).textContent = ``
+                console.log(`user created`)
+            }
+        }
+
+    } catch (error) {
+        error.node.focus();
+        error.node.value = ``;
+        document.querySelector(`.error-msg`).textContent = error.msg;
+    }
+
 }
 
 function addEventListenerCard() {
