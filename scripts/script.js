@@ -4,6 +4,7 @@ window.addEventListener(`load`, () => {
 });
 
 function initLoginForm() {
+    const formTitle = `Login`
     const loginForm = [
         {
             id: `username`,
@@ -17,42 +18,89 @@ function initLoginForm() {
         }
     ];
 
+    initForm(formTitle, loginForm)
+}
+
+function initSignUpForm(event) {
+    event.preventDefault();
+    document.querySelector(`.form-section`).innerHTML = ``;
+    const formTitle = `Register new user`
+    const signUpForm = [
+        {
+            id: `username`,
+            type: `text`,
+            placeholder: `Username`
+        },
+        {
+            id: `password`,
+            type: `password`,
+            placeholder: `Password`
+        },
+        {
+            id: `passwordAgain`,
+            type: `password`,
+            placeholder: `Repaet password`
+        }
+    ];
+    initForm(formTitle, signUpForm)
+
+}
+
+function initForm(title, form) {
+
+
     const formRef = document.createElement(`form`);
     formRef.classList.add(`form-container`);
     document.querySelector(`.form-section`).appendChild(formRef);
 
     const h2Ref = document.createElement(`h2`);
-    h2Ref.textContent = `Login`;
+    h2Ref.textContent = title;
     formRef.appendChild(h2Ref);
 
     const errorMsgRef = document.createElement(`p`);
     errorMsgRef.classList.add(`error-msg`);
     formRef.appendChild(errorMsgRef);
 
-    createFormInput(loginForm);
+    createFormInput(form);
 
     const divRef = document.createElement(`div`);
     divRef.classList.add(`form-btnbox`);
 
-    const loginBtnRef = document.createElement(`button`);
-    loginBtnRef.classList.add(`form-btn`);
-    loginBtnRef.id = `loginBtn`;
-    loginBtnRef.textContent = `Login`;
 
-    const signUpBtnRef = document.createElement(`button`);
-    signUpBtnRef.classList.add(`form-btn`);
-    signUpBtnRef.id = `signUpBtn`;
-    signUpBtnRef.textContent = `Sign up`;
 
-    divRef.appendChild(loginBtnRef);
-    divRef.appendChild(signUpBtnRef);
+
+
+
+
+    if (title === `Login`) {
+
+        const loginBtnRef = document.createElement(`button`);
+        loginBtnRef.classList.add(`form-btn`);
+        loginBtnRef.id = `loginBtn`;
+        loginBtnRef.textContent = `Login`;
+        divRef.appendChild(loginBtnRef);
+
+        loginBtnRef.addEventListener(`click`, validateLogin);
+
+        const signUpBtnRef = document.createElement(`button`);
+        signUpBtnRef.classList.add(`form-btn`);
+        signUpBtnRef.id = `signUpBtn`;
+        signUpBtnRef.textContent = `Sign up`;
+        divRef.appendChild(signUpBtnRef);
+
+        signUpBtnRef.addEventListener(`click`, initSignUpForm);
+    } else {
+
+        const RegisterBtnRef = document.createElement(`button`);
+        RegisterBtnRef.classList.add(`form-btn`);
+        RegisterBtnRef.id = `registerBtn`;
+        RegisterBtnRef.textContent = `Register user`;
+        divRef.appendChild(RegisterBtnRef);
+
+        RegisterBtnRef.addEventListener(`click`, validateRegistartion);
+    }
+
     formRef.appendChild(divRef);
-
-    loginBtnRef.addEventListener(`click`, validateLogin);
-    signUpBtnRef.addEventListener(`click`, () => {
-        event.preventDefault();
-        console.log(`Clicked Sign Up`);
-    });
 }
 
 function createFormInput(array) {
@@ -137,6 +185,11 @@ function validateLogin(event) {
 
     }
 
+}
+
+function validateRegistartion(event) {
+    event.preventDefault();
+    console.log(`validateRegistartion()`)
 }
 
 function addEventListenerCard() {
