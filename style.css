@@ -3,3 +3,82 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+.game-area {
+    margin: 3rem auto;
+    max-width: 1440px;
+    display: grid;
+    gap: 3rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+.card {
+    position: relative;
+    aspect-ratio: 2 / 3;
+    border-radius: 8px;
+    border: solid 5px black;
+    padding: 1rem;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, .5);
+    transition: all .2s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    user-select: none;
+}
+
+.card-backside {
+    position: absolute;
+    pointer-events: none;
+    height: 100%;
+    width: 100%;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(25deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+}
+
+.card-image {
+    max-width: 100%;
+    pointer-events: none;
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+}
+
+.card-title {
+    pointer-events: none;
+}
+
+.game-over {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2rem;
+    padding: 1rem;
+}
+
+.congratulation-msg {
+    font-size: 2.5rem;
+}
+
+.victory-msg {
+    font-size: 1.5rem;
+}
+
+.play-btn {
+    padding: 1rem 3rem;
+    border-radius: 16px;
+    border: none;
+    background: rgb(34, 193, 195);
+    background: linear-gradient(25deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 80%);
+}
+
+.play-btn:hover {
+    background: rgb(34, 193, 195);
+    background: linear-gradient(200deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 80%);
+}
+
+.d-none {
+    display: none;
+}
