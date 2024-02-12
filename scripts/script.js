@@ -122,14 +122,11 @@ function createFormInput(array) {
 function validateLogin(event) {
     event.preventDefault();
 
-    // Test User
-    const users = [
-        {
-            username: `abc`,
-            password: `123`,
-            highScore: 0,
-        },
-    ]
+    const usersString = localStorage.getItem(`users`)
+    let users = []
+    if (usersString) {
+        users = JSON.parse(usersString)
+    }
 
     const usernameInput = document.querySelector(`#username`)
     const passwordInput = document.querySelector(`#password`)
@@ -182,15 +179,15 @@ function validateLogin(event) {
 function validateRegistartion(event) {
     event.preventDefault();
 
-    // Test User
-    const users = [
-        {
-            username: `abc`,
-            password: `123`,
-            highScore: 0,
-        },
-    ]
+
+
     try {
+        const usersString = localStorage.getItem(`users`)
+        let users = []
+        if (usersString) {
+            users = JSON.parse(usersString)
+        }
+
         const usernameInput = document.querySelector(`#username`)
         const passwordInput = document.querySelector(`#password`)
         const passwordAgainInput = document.querySelector(`#passwordAgain`)
@@ -233,15 +230,15 @@ function validateRegistartion(event) {
             } else {
                 document.querySelector(`.error-msg`).textContent = ``
                 addNewUser(usernameInput.value, passwordInput.value)
-                // document.querySelector(`.form-section`).innerHTML = ``;
-                // setGameArea(generateCardOrder())
+                document.querySelector(`.form-section`).innerHTML = ``;
+                setGameArea(generateCardOrder())
             }
         }
     } catch (error) {
-        console.log(error);
-        // error.node.focus();
-        // error.node.value = ``;
-        // document.querySelector(`.error-msg`).textContent = error.msg;
+        console.log(error)
+        error.node.focus();
+        error.node.value = ``;
+        document.querySelector(`.error-msg`).textContent = error.msg;
     }
 
 }
