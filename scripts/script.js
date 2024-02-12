@@ -232,16 +232,36 @@ function validateRegistartion(event) {
                 }
             } else {
                 document.querySelector(`.error-msg`).textContent = ``
-                console.log(`user created`)
+                addNewUser(usernameInput.value, passwordInput.value)
+                // document.querySelector(`.form-section`).innerHTML = ``;
+                // setGameArea(generateCardOrder())
             }
         }
-
     } catch (error) {
-        error.node.focus();
-        error.node.value = ``;
-        document.querySelector(`.error-msg`).textContent = error.msg;
+        console.log(error);
+        // error.node.focus();
+        // error.node.value = ``;
+        // document.querySelector(`.error-msg`).textContent = error.msg;
     }
 
+}
+
+function addNewUser(uName, pWord) {
+    let users = localStorage.getItem(`users`)
+
+    const newUser = {
+        username: uName,
+        password: pWord,
+    }
+    if (!users) {
+        users = []
+        users.push(newUser)
+        localStorage.setItem(`users`, JSON.stringify(users))
+    } else {
+        const userObject = JSON.parse(users)
+        userObject.push(newUser);
+        localStorage.setItem(`users`, JSON.stringify(userObject))
+    }
 }
 
 function addEventListenerCard() {
