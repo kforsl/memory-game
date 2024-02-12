@@ -4,6 +4,7 @@ window.addEventListener(`load`, () => {
 });
 
 function initLoginForm() {
+    const formTitle = `Login`
     const loginForm = [
         {
             id: `username`,
@@ -17,42 +18,82 @@ function initLoginForm() {
         }
     ];
 
+    initForm(formTitle, loginForm)
+}
+
+function initSignUpForm(event) {
+    event.preventDefault();
+    document.querySelector(`.form-section`).innerHTML = ``;
+    const formTitle = `Register new user`
+    const signUpForm = [
+        {
+            id: `username`,
+            type: `text`,
+            placeholder: `Username`
+        },
+        {
+            id: `password`,
+            type: `password`,
+            placeholder: `Password`
+        },
+        {
+            id: `passwordAgain`,
+            type: `password`,
+            placeholder: `Repaet password`
+        }
+    ];
+    initForm(formTitle, signUpForm)
+}
+
+function initForm(title, form) {
+
     const formRef = document.createElement(`form`);
     formRef.classList.add(`form-container`);
     document.querySelector(`.form-section`).appendChild(formRef);
 
     const h2Ref = document.createElement(`h2`);
-    h2Ref.textContent = `Login`;
+    h2Ref.textContent = title;
     formRef.appendChild(h2Ref);
 
     const errorMsgRef = document.createElement(`p`);
     errorMsgRef.classList.add(`error-msg`);
     formRef.appendChild(errorMsgRef);
 
-    createFormInput(loginForm);
+    createFormInput(form);
 
     const divRef = document.createElement(`div`);
     divRef.classList.add(`form-btnbox`);
 
-    const loginBtnRef = document.createElement(`button`);
-    loginBtnRef.classList.add(`form-btn`);
-    loginBtnRef.id = `loginBtn`;
-    loginBtnRef.textContent = `Login`;
+    if (title === `Login`) {
 
-    const signUpBtnRef = document.createElement(`button`);
-    signUpBtnRef.classList.add(`form-btn`);
-    signUpBtnRef.id = `signUpBtn`;
-    signUpBtnRef.textContent = `Sign up`;
+        const loginBtnRef = document.createElement(`button`);
+        loginBtnRef.classList.add(`form-btn`);
+        loginBtnRef.id = `loginBtn`;
+        loginBtnRef.textContent = `Login`;
+        divRef.appendChild(loginBtnRef);
 
-    divRef.appendChild(loginBtnRef);
-    divRef.appendChild(signUpBtnRef);
+        loginBtnRef.addEventListener(`click`, validateLogin);
+
+        const signUpBtnRef = document.createElement(`button`);
+        signUpBtnRef.classList.add(`form-btn`);
+        signUpBtnRef.id = `signUpBtn`;
+        signUpBtnRef.textContent = `Sign up`;
+        divRef.appendChild(signUpBtnRef);
+
+        signUpBtnRef.addEventListener(`click`, initSignUpForm);
+
+    } else {
+
+        const RegisterBtnRef = document.createElement(`button`);
+        RegisterBtnRef.classList.add(`form-btn`);
+        RegisterBtnRef.id = `registerBtn`;
+        RegisterBtnRef.textContent = `Register user`;
+        divRef.appendChild(RegisterBtnRef);
+
+        RegisterBtnRef.addEventListener(`click`, validateRegistartion);
+    }
+
     formRef.appendChild(divRef);
-
-    loginBtnRef.addEventListener(`click`, validateLogin);
-    signUpBtnRef.addEventListener(`click`, () => {
-        event.preventDefault();
-        console.log(`Clicked Sign Up`);
-    });
 }
 
 function createFormInput(array) {
@@ -134,7 +175,71 @@ function validateLogin(event) {
         error.node.focus();
         error.node.value = ``;
         document.querySelector(`.error-msg`).textContent = error.msg;
+    }
 
+}
+
+function validateRegistartion(event) {
+    event.preventDefault();
+
+    // Test User
+    const users = [
+        {
+            username: `abc`,
+            password: `123`,
+            highScore: 0,
+        },
+    ]
+    try {
+        const usernameInput = document.querySelector(`#username`)
+        const passwordInput = document.querySelector(`#password`)
+        const passwordAgainInput = document.querySelector(`#passwordAgain`)
+
+        const foundUser = users.find(user => user.username === usernameInput.value)
+
+        if (!usernameInput.value && !passwordInput.value && !passwordAgainInput.value) {
+            throw {
+                node: usernameInput,
+                msg: `Please, enter in a username and a password.`
+            }
+        } else if (!usernameInput.value) {
+            throw {
+                node: usernameInput,
+                msg: `Please, enter in a username.`
+            }
+        } else if (!passwordInput.value) {
+            throw {
+                node: passwordInput,
+                msg: `Please, enter in a password.`
+            }
+        } else if (!passwordAgainInput.value) {
+            throw {
+                node: passwordAgainInput,
+                msg: `Please, enter in the password again.`
+            }
+        }
+
+        if (foundUser) {
+            throw {
+                node: usernameInput,
+                msg: `Sorry, there is already a user with that name.`
+            }
+        } else {
+            if (passwordInput.value !== passwordAgainInput.value) {
+                throw {
+                    node: passwordAgainInput,
+                    msg: `Sorry, password don't match try again.`
+                }
+            } else {
+                document.querySelector(`.error-msg`).textContent = ``
+                console.log(`user created`)
+            }
+        }
+
+    } catch (error) {
+        error.node.focus();
+        error.node.value = ``;
+        document.querySelector(`.error-msg`).textContent = error.msg;
     }
 
 }
