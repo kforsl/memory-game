@@ -1,5 +1,4 @@
 window.addEventListener(`load`, () => {
-    // setGameArea(generateCardOrder())
     initLoginForm()
 });
 
@@ -378,6 +377,17 @@ function initGameOverScreen() {
     playAgainRef.addEventListener(`click`, () => {
         playedTurns = 0;
         setGameArea(generateCardOrder())
+    })
+
+    const logOutbtnRef = document.createElement(`button`)
+    logOutbtnRef.classList.add(`play-btn`)
+    logOutbtnRef.textContent = `logout`
+    divRef.appendChild(logOutbtnRef)
+
+    logOutbtnRef.addEventListener(`click`, () => {
+        playedTurns = 0;
+        document.querySelector(`.game-area`).innerHTML = ``
+        initLoginForm()
     })
 
     document.querySelector(`.game-area`).appendChild(divRef)
