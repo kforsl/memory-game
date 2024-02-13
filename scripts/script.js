@@ -122,14 +122,11 @@ function createFormInput(array) {
 function validateLogin(event) {
     event.preventDefault();
 
-    // Test User
-    const users = [
-        {
-            username: `abc`,
-            password: `123`,
-            highScore: 0,
-        },
-    ]
+    const usersString = localStorage.getItem(`users`)
+    let users = []
+    if (usersString) {
+        users = JSON.parse(usersString)
+    }
 
     const usernameInput = document.querySelector(`#username`)
     const passwordInput = document.querySelector(`#password`)
@@ -182,15 +179,15 @@ function validateLogin(event) {
 function validateRegistartion(event) {
     event.preventDefault();
 
-    // Test User
-    const users = [
-        {
-            username: `abc`,
-            password: `123`,
-            highScore: 0,
-        },
-    ]
+
+
     try {
+        const usersString = localStorage.getItem(`users`)
+        let users = []
+        if (usersString) {
+            users = JSON.parse(usersString)
+        }
+
         const usernameInput = document.querySelector(`#username`)
         const passwordInput = document.querySelector(`#password`)
         const passwordAgainInput = document.querySelector(`#passwordAgain`)
@@ -232,16 +229,36 @@ function validateRegistartion(event) {
                 }
             } else {
                 document.querySelector(`.error-msg`).textContent = ``
-                console.log(`user created`)
+                addNewUser(usernameInput.value, passwordInput.value)
+                document.querySelector(`.form-section`).innerHTML = ``;
+                setGameArea(generateCardOrder())
             }
         }
-
     } catch (error) {
+        console.log(error)
         error.node.focus();
         error.node.value = ``;
         document.querySelector(`.error-msg`).textContent = error.msg;
     }
 
+}
+
+function addNewUser(uName, pWord) {
+    let users = localStorage.getItem(`users`)
+
+    const newUser = {
+        username: uName,
+        password: pWord,
+    }
+    if (!users) {
+        users = []
+        users.push(newUser)
+        localStorage.setItem(`users`, JSON.stringify(users))
+    } else {
+        const userObject = JSON.parse(users)
+        userObject.push(newUser);
+        localStorage.setItem(`users`, JSON.stringify(userObject))
+    }
 }
 
 function addEventListenerCard() {
